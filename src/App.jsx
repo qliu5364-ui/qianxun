@@ -129,12 +129,15 @@ function Navbar() {
   );
 }
 
+/* 静态资源路径：兼容 GitHub Pages 子路径部署 */
+const asset = (name) => `${import.meta.env.BASE_URL}assets/${name}`;
+
 function Hero() {
   return (
     <header className="hero">
       <video
         className="hero-video"
-        src="/assets/hero-bg.mp4"
+        src={asset("hero-bg.mp4")}
         autoPlay
         muted
         loop
@@ -203,7 +206,7 @@ function About() {
       <div className="container">
         <div className="panel glass reveal">
           <div className="photo-wrap">
-            <img className="photo" src="/assets/avatar.png" alt="刘洪安" />
+            <img className="photo" src={asset("avatar.png")} alt="刘洪安" />
             <div className="photo-tag glass">刘洪安 · AIGC DIRECTOR</div>
             <div className="photo-badge glass">
               <Icon d={icons.spark} size={16} /> 即刻接单
@@ -262,21 +265,21 @@ function CountStat({ num, suffix, label }) {
 function Works() {
   const works = [
     {
-      src: "/assets/work1.mp4",
+      src: asset("work1.mp4"),
       idx: "01",
       title: "AI 概念短片 · 幻境序章",
       desc: "全片由 AI 生成完成，从分镜脚本、画面生成到剪辑调色独立执导，探索 AI 影像的叙事边界与电影感表达。",
       tags: ["AI 短片", "导演 / 剪辑", "即梦 · 可灵"],
     },
     {
-      src: "/assets/work2.mp4",
+      src: asset("work2.mp4"),
       idx: "02",
       title: "AI 视觉实验 · 光影重塑",
       desc: "以风格化提示词工程与 ControlNet 精准控制为核心，实现电影级光影与构图，呈现稳定的视觉一致性。",
       tags: ["视觉实验", "ComfyUI", "ControlNet"],
     },
     {
-      src: "/assets/work3.mp4",
+      src: asset("work3.mp4"),
       idx: "03",
       title: "AI 商业广告 · 品牌叙事",
       desc: "为品牌量身打造的 AIGC 广告片，将产品卖点融入 AI 生成的超现实场景，以极低成本实现高规格视效。",
