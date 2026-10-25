@@ -356,9 +356,10 @@ body {
 
 .about .panel {
   display: grid;
-  grid-template-columns: 460px 1fr;
-  gap: 70px;
+  grid-template-columns: 350px 1fr;
+  gap: 64px;
   padding: 64px;
+  align-items: center;
 }
 
 .about .photo-wrap {
@@ -367,7 +368,7 @@ body {
 
 .about .photo {
   width: 100%;
-  aspect-ratio: 4 / 4.6;
+  aspect-ratio: 3 / 4;
   object-fit: cover;
   object-position: top;
   border-radius: 22px;
@@ -814,6 +815,10 @@ body {
 @media (max-width: 1200px) {
   .about .panel {
     grid-template-columns: 1fr;
+  }
+  .about .photo-wrap {
+    max-width: 350px;
+    margin: 0 auto;
   }
   .works .grid,
   .strengths .grid {
