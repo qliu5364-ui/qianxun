@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 /* 滚动入场动画 Hook */
 function useReveal() {
@@ -118,6 +118,7 @@ const icons = {
   check: "M20 6L9 17l-5-5",
   quote: "M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z",
   user: "M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z",
+  close: "M18 6L6 18 M6 6l12 12",
 };
 
 function Navbar() {
@@ -266,7 +267,53 @@ function CountStat({ num, suffix, label }) {
   );
 }
 
+/* 作品放大预览（灯箱） */
+function Lightbox({ work, onClose }) {
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [onClose]);
+
+  return (
+    <div className="lightbox" onClick={onClose}>
+      <div className="lb-inner" onClick={(e) => e.stopPropagation()}>
+        <button className="lb-close" onClick={onClose} aria-label="关闭">
+          <Icon d={icons.close} size={20} />
+        </button>
+
+        <div className="lb-media">
+          <video src={work.src} controls autoPlay playsInline loop />
+        </div>
+
+        <div className="lb-info">
+          <div className="lb-top">
+            <span className="lb-idx">{work.idx}</span>
+            {work.project && <span className="lb-proj">{work.project}</span>}
+          </div>
+          <h3>{work.title}</h3>
+          <p>{work.desc}</p>
+          <div className="lb-tags">
+            {work.tags.map((t) => (
+              <span key={t}>{t}</span>
+            ))}
+          </div>
+          <span className="lb-hint">ESC 或点击空白处关闭</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Works() {
+  const [active, setActive] = useState(null);
   const works = [
     // —— 武汉市中医医院 · 中医张压西抖音号 ——
     {
@@ -336,7 +383,19 @@ function Works() {
         </div>
         <div className="grid">
           {works.map((w) => (
-            <div className="work-card glass reveal" key={w.idx}>
+            <div
+              className="work-card glass reveal"
+              key={w.idx}
+              role="button"
+              tabIndex={0}
+              onClick={() => setActive(w)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  setActive(w);
+                }
+              }}
+            >
               <div className="video-box">
                 <HoverVideo src={w.src} />
                 <span className="idx">{w.idx}</span>
@@ -344,6 +403,7 @@ function Works() {
                   <span className="circle">
                     <Icon d={icons.play} size={26} />
                   </span>
+                  <span className="ph-text">点击放大观看</span>
                 </div>
                 {w.project && <span className="proj-tag">{w.project}</span>}
               </div>
@@ -361,6 +421,8 @@ function Works() {
           ))}
         </div>
       </div>
+
+      {active && <Lightbox work={active} onClose={() => setActive(null)} />}
     </section>
   );
 }
