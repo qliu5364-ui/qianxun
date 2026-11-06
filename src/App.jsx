@@ -615,66 +615,6 @@ function Strengths() {
   );
 }
 
-/* ---------- 客户评价 ---------- */
-function Testimonials() {
-  const list = [
-    {
-      quote:
-        "洪安把中医专业内容转译成通俗易懂的短视频口播，让医生和患者都能看懂。账号从 0 到 17w+ 涨粉，他的内容结构 SOP 功不可没。",
-      name: "张主任",
-      role: "武汉市中医医院 · 中医内科",
-    },
-    {
-      quote:
-        "我们是源头工厂，之前账号一直做不起来。洪安来了之后，突出自产自销差异化，单条视频直接跑到 22w+ 自然播放，直播间成交也起来了。",
-      name: "陈总",
-      role: "景德镇妙得陶瓷 · 工厂负责人",
-    },
-    {
-      quote:
-        "他不只是做视频，更懂运营。每次给的脚本都精准戳用户痛点，开头钩子一抓一个准，数据复盘也很扎实，能跟着他学到很多。",
-      name: "李女士",
-      role: "抖音创业者 · 美食领域",
-    },
-  ];
-  return (
-    <section className="testimonials">
-      <div className="divider" />
-      <div className="container">
-        <div className="head reveal">
-          <div>
-            <span className="section-label">TESTIMONIALS</span>
-            <h2>
-              客户与学员<span style={{ color: "var(--accent)" }}>怎么说</span>
-            </h2>
-          </div>
-          <span className="head-side">真实反馈 · 口碑见证</span>
-        </div>
-        <div className="grid">
-          {list.map((t, i) => (
-            <div className="tm-card glass reveal" key={t.name} style={{ transitionDelay: `${i * 100}ms` }}>
-              <div className="tm-quote">
-                <Icon d={icons.quote} size={28} />
-              </div>
-              <p className="tm-text">“{t.quote}”</p>
-              <div className="tm-foot">
-                <div className="tm-avatar">
-                  <Icon d={icons.user} size={22} />
-                </div>
-                <div>
-                  <div className="tm-name">{t.name}</div>
-                  <div className="tm-role">{t.role}</div>
-                </div>
-              </div>
-              <span className="card-shine" />
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function Contact() {
   return (
     <section id="contact" className="contact">
@@ -743,7 +683,6 @@ export default function App() {
       <Services />
       <Process />
       <Strengths />
-      <Testimonials />
       <Contact />
     </>
   );
