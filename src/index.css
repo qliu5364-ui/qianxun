@@ -500,6 +500,21 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.25);
 }
 
+.work-card .proj-tag {
+  position: absolute;
+  top: 20px;
+  right: 22px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(100, 150, 200, 0.25);
+  letter-spacing: 0.04em;
+}
+
 .work-card .play-hint {
   position: absolute;
   inset: 0;

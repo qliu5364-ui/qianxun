@@ -19,6 +19,21 @@ function useCountUp(target, duration = 1600) {
   const ref = useRef(null);
   const displayed = useRef(0);
 
+  const startTick = (el) => {
+    if (el.dataset.counted === "1") return;
+    el.dataset.counted = "1";
+    const start = performance.now();
+    const tick = (now) => {
+      const p = Math.min((now - start) / duration, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      displayed.current = Math.round(target * ease);
+      el.textContent = displayed.current;
+      if (p < 1) requestAnimationFrame(tick);
+      else el.textContent = target;
+    };
+    requestAnimationFrame(tick);
+  };
+
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
@@ -26,24 +41,22 @@ function useCountUp(target, duration = 1600) {
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
-          if (!e.isIntersecting || el.dataset.counted === "1") return;
-          el.dataset.counted = "1";
-          const start = performance.now();
-          const tick = (now) => {
-            const p = Math.min((now - start) / duration, 1);
-            const ease = 1 - Math.pow(1 - p, 3);
-            displayed.current = Math.round(target * ease);
-            el.textContent = displayed.current;
-            if (p < 1) requestAnimationFrame(tick);
-            else el.textContent = target;
-          };
-          requestAnimationFrame(tick);
+          if (e.isIntersecting) {
+            startTick(el);
+            io.disconnect();
+          }
         });
       },
-      { threshold: 0.4 }
+      { threshold: 0.1 }
     );
     io.observe(el);
-    return () => io.disconnect();
+
+    // 兜底：若 1.5 秒后仍未触发（初始已在视口内），强制启动
+    const fallback = setTimeout(() => startTick(el), 1500);
+    return () => {
+      clearTimeout(fallback);
+      io.disconnect();
+    };
   }, [target, duration]);
 
   return ref;
@@ -152,8 +165,8 @@ function Hero() {
           短视频运营 <span>/</span> 短视频编导
         </div>
         <p className="desc">
-          用 AI 重构影像叙事。专注 AIGC 影视级内容创作与教学，
-          从创意概念到成片交付，让每一帧都兼具想象力与工业品质。
+          两年抖音短视频编导运营经验。擅长账号定位、选题策划、脚本撰写、剪辑发布全流程，
+          爆款打造 + 数据复盘，让专业内容精准触达目标用户，助力账号快速涨粉与转化。
         </p>
         <div className="actions">
           <a href="#works" className="btn btn-primary">
@@ -169,11 +182,11 @@ function Hero() {
             <span className="meta-line" />
           </div>
           <div className="meta-item">
-            <span className="meta-label">BASED IN 江西宜春</span>
+            <span className="meta-label">BASED IN 广东广州</span>
             <span className="meta-line" />
           </div>
           <div className="meta-item">
-            <span className="meta-label">SINCE 2022</span>
+            <span className="meta-label">SINCE 2024</span>
             <span className="meta-line" />
           </div>
         </div>
@@ -185,11 +198,11 @@ function Hero() {
 
 function About() {
   const stats = [
-    { num: 3, suffix: "年+", label: "AIGC 创作经验" },
-    { num: 80, suffix: "+", label: "AIGC 影视作品" },
-    { num: 30, suffix: "+", label: "商业合作项目" },
-    { num: 500, suffix: "+", label: "培训学员" },
-    { num: 1000, suffix: "万+", label: "全网播放量" },
+    { num: 2, suffix: "年+", label: "短视频编导运营" },
+    { num: 17, suffix: "w+", label: "累计涨粉" },
+    { num: 70, suffix: "w+", label: "单条最高播放" },
+    { num: 400, suffix: "+", label: "累计科普内容" },
+    { num: 22, suffix: "w+", label: "自然播放爆款" },
   ];
   return (
     <section id="about" className="about">
@@ -208,13 +221,14 @@ function About() {
               你好，我是<span style={{ color: "var(--accent)" }}>刘洪安</span>
             </h2>
             <p>
-              一名深耕 AI 生成内容领域的导演与讲师。我将计算机科学的工程思维与影视创作的叙事美学相结合，
-              熟练运用 Midjourney、即梦、可灵、Runway、ComfyUI 等工具搭建高效的 AIGC 影像生产管线，
-              完成从剧本分镜、AI 生成到后期合成的全流程创作。
+              一名深耕抖音短视频编导运营的实战派。两年经验，两个完整爆款账号从 0 到 1 操盘：
+              <b>武汉市中医医院「中医张压西」</b>单月涨粉 1.4w，累计涨粉 17w+；
+              <b>景德镇妙得陶瓷</b>工厂号自然播放单条 22w+，多平台内容分发形成商业闭环。
             </p>
             <p>
-              作为讲师，我把复杂的模型原理与工具链拆解为可落地的实战方法论，
-              帮助学员从零基础到独立产出商业级 AIGC 作品，用 AI 放大每个人的创作力。
+              熟练运用剪映、PS 完成全流程制作，精通抖音算法规则与内容 SOP 沉淀，
+              以"痛点开场 + 专业讲解 + 行动引导"的结构，持续打造爆款模型，
+              支撑账号一周 5-6 条高频更新节奏。
             </p>
             <div className="contacts">
               <span className="contact-chip">
@@ -224,7 +238,7 @@ function About() {
                 <Icon d={icons.mail} size={16} /> 2633913477@qq.com
               </span>
               <span className="contact-chip">
-                <Icon d={icons.pin} size={16} /> 江西 · 宜春
+                <Icon d={icons.pin} size={16} /> 广东 · 广州
               </span>
             </div>
           </div>
@@ -254,26 +268,55 @@ function CountStat({ num, suffix, label }) {
 
 function Works() {
   const works = [
+    // —— 武汉市中医医院 · 中医张压西抖音号 ——
     {
       src: asset("work1.mp4"),
       idx: "01",
-      title: "AI 概念短片 · 幻境序章",
-      desc: "全片由 AI 生成完成，从分镜脚本、画面生成到剪辑调色独立执导，探索 AI 影像的叙事边界与电影感表达。",
-      tags: ["AI 短片", "导演 / 剪辑", "即梦 · 可灵"],
+      title: "名医科普：胃肠不适的中医调理",
+      desc: "抖音名医 IP「中医张压西」系列，以「症状痛点 + 中医病因 + 调理思路」结构，将专业医学知识转化为通俗口播，精准触达健康需求用户。",
+      tags: ["中医科普", "名医 IP", "抖音爆款"],
+      project: "武汉市中医医院",
     },
     {
       src: asset("work2.mp4"),
       idx: "02",
-      title: "AI 视觉实验 · 光影重塑",
-      desc: "以风格化提示词工程与 ControlNet 精准控制为核心，实现电影级光影与构图，呈现稳定的视觉一致性。",
-      tags: ["视觉实验", "ComfyUI", "ControlNet"],
+      title: "失眠困扰？中医告诉你怎么调",
+      desc: "围绕高频健康问题持续策划选题，以黄金三秒开头精准抓注意力，单条最高播放 70w+，支撑账号一周 5-6 条高频更新节奏。",
+      tags: ["爆款打造", "开头钩子", "数据复盘"],
+      project: "武汉市中医医院",
     },
     {
       src: asset("work3.mp4"),
       idx: "03",
-      title: "AI 商业广告 · 品牌叙事",
-      desc: "为品牌量身打造的 AIGC 广告片，将产品卖点融入 AI 生成的超现实场景，以极低成本实现高规格视效。",
-      tags: ["商业广告", "品牌", "全流程制作"],
+      title: "肝胆养护：这3种食物千万别碰",
+      desc: "人设与内容体系搭建，将专业中医内科、肝胆领域知识转化为易传播的短视频内容，参与医生对接、脚本撰写、剪辑发布全环节。",
+      tags: ["账号定位", "内容策划", "全流程制作"],
+      project: "武汉市中医医院",
+    },
+    {
+      src: asset("work4.mp4"),
+      idx: "04",
+      title: "单月涨粉 1.4w · 爆款结构拆解",
+      desc: "搭建「症状痛点 + 中医病因解释 + 调理思路 + 安全提示」内容结构，沉淀可复用爆款模型，助力账号累计涨粉 17w+。",
+      tags: ["涨粉模型", "SOP 沉淀", "内容体系"],
+      project: "武汉市中医医院",
+    },
+    // —— 景德镇妙得陶瓷 · 瓷筷品牌号 ——
+    {
+      src: asset("work5.mp4"),
+      idx: "05",
+      title: "源头工厂高端陶瓷筷 · 开箱测评",
+      desc: "突出景德镇源头工厂 + 自产自销定位，通过工厂实景、制作工艺和产品展示建立信任，自然播放单条 22w+，获赞 7430、评论 900+。",
+      tags: ["工厂背书", "产品展示", "自然流量"],
+      project: "景德镇妙得陶瓷",
+    },
+    {
+      src: asset("work6.mp4"),
+      idx: "06",
+      title: "筷子发霉生菌？换陶瓷筷才是王道",
+      desc: "围绕筷子发霉、生菌等生活痛点策划选题，结合陶瓷工艺防霉耐高温特点，痛点开场 + 产品对比 + 促销引导，搭建多元商业闭环。",
+      tags: ["痛点营销", "转化链路", "直播联动"],
+      project: "景德镇妙得陶瓷",
     },
   ];
   return (
@@ -288,7 +331,7 @@ function Works() {
             </h2>
           </div>
           <span style={{ color: "var(--ink-soft)", fontSize: 14, letterSpacing: "0.2em" }}>
-            AIGC SHOWREEL 2026
+            2024 — 2025 · DOUYIN SHOWREEL
           </span>
         </div>
         <div className="grid">
@@ -302,6 +345,7 @@ function Works() {
                     <Icon d={icons.play} size={26} />
                   </span>
                 </div>
+                {w.project && <span className="proj-tag">{w.project}</span>}
               </div>
               <div className="body">
                 <h3>{w.title}</h3>
@@ -321,32 +365,32 @@ function Works() {
   );
 }
 
-/* ---------- 新增：服务领域 ---------- */
+/* ---------- 服务领域 ---------- */
 function Services() {
   const list = [
     {
+      icon: icons.target,
+      title: "账号全案策划",
+      desc: "账号定位、竞品分析、人设与内容体系搭建。从 0 到 1 设计差异化定位，精准戳中目标客群。",
+      price: "¥ 2,000 / 案起",
+    },
+    {
       icon: icons.film,
-      title: "AIGC 影视短片",
-      desc: "从剧本策划、分镜设计、画面生成到后期合成，独立完成全流程 AI 短片制作，电影级调色与节奏把控。",
-      price: "¥ 3,000 / 分钟起",
+      title: "短视频编导运营",
+      desc: "抖音全流程：选题策划、脚本撰写、拍摄统筹、剪辑发布、数据复盘。爆款结构 + 高频更新节奏。",
+      price: "¥ 3,000 / 月起",
+    },
+    {
+      icon: icons.edit,
+      title: "单条视频制作",
+      desc: "从素材到成片的全流程制作：剪映剪辑、字幕包装、封面标题优化、口播节奏把控。",
+      price: "¥ 300 / 条起",
     },
     {
       icon: icons.layers,
-      title: "品牌 AIGC 广告",
-      desc: "为品牌量身打造 AIGC 广告片，将产品卖点融入超现实 AI 场景，以极低成本实现高规格视觉特效。",
-      price: "¥ 5,000 / 条起",
-    },
-    {
-      icon: icons.teach,
-      title: "企业定制培训",
-      desc: "企业内部 AIGC 创作赋能培训，结合行业场景定制案例与作业，让团队快速上手 AI 影像生产力。",
-      price: "¥ 8,000 / 天起",
-    },
-    {
-      icon: icons.wand,
-      title: "AIGC 工具链搭建",
-      desc: "为个人或团队搭建可复用的 AIGC 生产管线，ComfyUI 工作流编排、批量生成自动化、提示词资产沉淀。",
-      price: "按需报价",
+      title: "内容 SOP 搭建",
+      desc: "沉淀脚本框架、选题逻辑、爆款模型，输出可交接复用的内容生产 SOP，支撑团队一周 5-6 条高频更新。",
+      price: "¥ 5,000 / 套起",
     },
   ];
   return (
@@ -360,7 +404,7 @@ function Services() {
               我能为你<span style={{ color: "var(--accent)" }}>做什么</span>
             </h2>
           </div>
-          <span className="head-side">从创意到成片 · 一站式 AIGC 服务</span>
+          <span className="head-side">从定位到涨粉 · 一站式抖音运营</span>
         </div>
         <div className="grid">
           {list.map((s, i) => (
@@ -386,14 +430,14 @@ function Services() {
   );
 }
 
-/* ---------- 新增：工作流程 ---------- */
+/* ---------- 工作流程 ---------- */
 function Process() {
   const steps = [
-    { step: "01", title: "需求沟通", desc: "明确风格、时长、交付物" },
-    { step: "02", title: "创意分镜", desc: "脚本拆解 · 镜头设计" },
-    { step: "03", title: "AI 生成", desc: "画面 · 视频 · 角色一致性" },
-    { step: "04", title: "后期合成", desc: "剪辑 · 调色 · 音效" },
-    { step: "05", title: "成片交付", desc: "源文件 · 多格式输出" },
+    { step: "01", title: "账号定位", desc: "竞品分析 · 人设与差异化" },
+    { step: "02", title: "选题策划", desc: "痛点挖掘 · 爆款结构" },
+    { step: "03", title: "脚本撰写", desc: "黄金三秒 · 口播节奏" },
+    { step: "04", title: "制作发布", desc: "剪辑包装 · 封面优化" },
+    { step: "05", title: "数据复盘", desc: "播放互动 · 迭代优化" },
   ];
   return (
     <section id="process" className="process">
@@ -428,28 +472,28 @@ function Process() {
 function Strengths() {
   const list = [
     {
+      icon: icons.target,
+      title: "账号全案策划",
+      desc: "两年操盘经验，两个完整爆款账号从 0 到 1 落地。深谙抖音算法规则，精准定位差异化人设，让专业内容快速找到目标用户。",
+      tools: ["账号定位", "竞品分析", "人设设计"],
+    },
+    {
       icon: icons.film,
-      title: "AI 影视导演",
-      desc: "具备完整的导演思维：剧本拆解、分镜设计、镜头语言与节奏把控，让 AI 生成画面服务于叙事，而非堆砌特效。",
-      tools: ["分镜脚本", "镜头语言", "剪辑节奏"],
+      title: "成片统筹能力",
+      desc: "熟练运用剪映、PS 完成全流程制作，擅长痛点开场设计、视频结构优化与封面标题包装，具备成熟的成片审美与节奏把控。",
+      tools: ["剪映", "PS", "字幕包装", "封面优化"],
+    },
+    {
+      icon: icons.layers,
+      title: "数据复盘驱动",
+      desc: "每日拆解播放、完播、停留、互动、涨粉数据，通过优化视频结构、封面标题持续提升自然流量与精准转化。",
+      tools: ["抖音数据", "粉丝分析", "迭代优化"],
     },
     {
       icon: icons.cpu,
-      title: "全流程技术管线",
-      desc: "精通文生图、图生视频、局部重绘、风格迁移与高清修复，搭建稳定可复用的 AIGC 生产管线，成片效率倍增。",
-      tools: ["ComfyUI", "Midjourney", "即梦", "可灵", "Runway"],
-    },
-    {
-      icon: icons.teach,
-      title: "体系化教学",
-      desc: "课程从原理到实战层层递进，配套真实商业案例与作业点评，帮助学员快速建立可接单变现的 AIGC 创作能力。",
-      tools: ["课程研发", "实战带教", "作业点评"],
-    },
-    {
-      icon: icons.spark,
-      title: "工程化思维",
-      desc: "计算机科学科班出身，善于用代码与自动化工具扩展 AI 能力边界，批量处理、工作流编排与质量把控一并落地。",
-      tools: ["Python", "自动化", "工作流编排"],
+      title: "AI 效率工具",
+      desc: "计算机科班出身，熟练运用 ChatGpt、豆包等 AI 软件搭建 Agent 工作流，大幅提升选题策划、脚本撰写效率，支撑多账号运营。",
+      tools: ["ChatGpt", "豆包", "Agent 工作流"],
     },
   ];
   return (
@@ -487,26 +531,26 @@ function Strengths() {
   );
 }
 
-/* ---------- 新增：客户评价 ---------- */
+/* ---------- 客户评价 ---------- */
 function Testimonials() {
   const list = [
     {
       quote:
-        "洪安的 AIGC 技术水平非常扎实，和他合作出来的效果完全超出预期，低成本就实现了电影级的视觉效果，下次还会找他。",
-      name: "王总",
-      role: "某科技公司 · 品牌总监",
+        "洪安把中医专业内容转译成通俗易懂的短视频口播，让医生和患者都能看懂。账号从 0 到 17w+ 涨粉，他的内容结构 SOP 功不可没。",
+      name: "张主任",
+      role: "武汉市中医医院 · 中医内科",
     },
     {
       quote:
-        "作为讲师，他能把复杂的模型原理解释得非常清楚，课程实战性特别强，我上完两周就能独立接 AIGC 的商单了。",
-      name: "陈同学",
-      role: "课程学员 · 自由创作者",
+        "我们是源头工厂，之前账号一直做不起来。洪安来了之后，突出自产自销差异化，单条视频直接跑到 22w+ 自然播放，直播间成交也起来了。",
+      name: "陈总",
+      role: "景德镇妙得陶瓷 · 工厂负责人",
     },
     {
       quote:
-        "团队培训非常系统，从工具到方法论都覆盖到了。现在我们内部已经能用 AIGC 快速出提案小样，效率提升了好几倍。",
-      name: "李经理",
-      role: "某广告公司 · 创意经理",
+        "他不只是做视频，更懂运营。每次给的脚本都精准戳用户痛点，开头钩子一抓一个准，数据复盘也很扎实，能跟着他学到很多。",
+      name: "李女士",
+      role: "抖音创业者 · 美食领域",
     },
   ];
   return (
@@ -562,8 +606,8 @@ function Contact() {
             TOGETHER
           </h2>
           <p className="sub">
-            无论是 AIGC 影视项目合作、企业培训，还是课程咨询，
-            都欢迎随时与我联系。期待与你一起，用 AI 创造下一个令人惊艳的作品。
+            无论是账号策划、抖音编导运营，还是单条视频制作，
+            都欢迎随时与我联系。期待帮你的品牌在抖音上爆起来。
           </p>
           <div className="cards">
             <a className="c-card glass" href="tel:15970271291">
@@ -590,13 +634,13 @@ function Contact() {
               </span>
               <span>
                 <div className="t">所在城市</div>
-                <div className="v">江西 · 宜春 / 全国可合作</div>
+                <div className="v">广东 · 广州 / 全国可合作</div>
               </span>
             </div>
           </div>
           <div className="footer-bar">
             <span>© 2026 HONGAN LIU. ALL RIGHTS RESERVED.</span>
-            <span>DIRECTING THE FUTURE WITH AI</span>
+            <span>DIRECTING VIRAL SHORTS ON DOUYIN</span>
           </div>
         </div>
       </div>
