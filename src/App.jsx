@@ -377,9 +377,7 @@ function Works() {
               精选<span style={{ color: "var(--accent)" }}>项目</span>
             </h2>
           </div>
-          <span style={{ color: "var(--ink-soft)", fontSize: 16, letterSpacing: "0.15em" }}>
-            2024 — 2025 · DOUYIN SHOWREEL
-          </span>
+          <span className="head-side">2024 — 2025 · DOUYIN SHOWREEL</span>
         </div>
         <div className="grid">
           {works.map((w) => (
