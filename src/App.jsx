@@ -377,7 +377,7 @@ function Works() {
               精选<span style={{ color: "var(--accent)" }}>项目</span>
             </h2>
           </div>
-          <span style={{ color: "var(--ink-soft)", fontSize: 14, letterSpacing: "0.2em" }}>
+          <span style={{ color: "var(--ink-soft)", fontSize: 16, letterSpacing: "0.15em" }}>
             2024 — 2025 · DOUYIN SHOWREEL
           </span>
         </div>

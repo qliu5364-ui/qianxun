@@ -74,18 +74,18 @@ body {
 .section-label {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  font-size: 13px;
-  letter-spacing: 0.35em;
+  gap: 12px;
+  font-size: 16px;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
   color: var(--ink-soft);
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .section-label::before {
   content: "";
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
   box-shadow: 0 0 12px rgba(91, 141, 239, 0.8);
@@ -1163,8 +1163,8 @@ body {
 }
 .head-side {
   color: var(--ink-soft);
-  font-size: 14px;
-  letter-spacing: 0.2em;
+  font-size: 16px;
+  letter-spacing: 0.15em;
 }
 
 /* ---------- 服务领域 Services ---------- */
