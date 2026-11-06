@@ -1241,14 +1241,8 @@ body {
   padding-top: 22px;
   border-top: 1px dashed var(--line);
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
-}
-.svc-price {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--accent);
-  letter-spacing: 0.04em;
 }
 .svc-arrow {
   color: var(--ink-soft);

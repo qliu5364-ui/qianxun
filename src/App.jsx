@@ -434,25 +434,21 @@ function Services() {
       icon: icons.target,
       title: "账号全案策划",
       desc: "账号定位、竞品分析、人设与内容体系搭建。从 0 到 1 设计差异化定位，精准戳中目标客群。",
-      price: "¥ 2,000 / 案起",
     },
     {
       icon: icons.film,
       title: "短视频编导运营",
       desc: "抖音全流程：选题策划、脚本撰写、拍摄统筹、剪辑发布、数据复盘。爆款结构 + 高频更新节奏。",
-      price: "¥ 3,000 / 月起",
     },
     {
       icon: icons.edit,
       title: "单条视频制作",
       desc: "从素材到成片的全流程制作：剪映剪辑、字幕包装、封面标题优化、口播节奏把控。",
-      price: "¥ 300 / 条起",
     },
     {
       icon: icons.layers,
       title: "内容 SOP 搭建",
       desc: "沉淀脚本框架、选题逻辑、爆款模型，输出可交接复用的内容生产 SOP，支撑团队一周 5-6 条高频更新。",
-      price: "¥ 5,000 / 套起",
     },
   ];
   return (
@@ -478,7 +474,6 @@ function Services() {
               <h3>{s.title}</h3>
               <p>{s.desc}</p>
               <div className="svc-footer">
-                <span className="svc-price">{s.price}</span>
                 <span className="svc-arrow">
                   <Icon d={icons.arrow} size={18} />
                 </span>
