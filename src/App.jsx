@@ -328,6 +328,8 @@ function Lightbox({ work, onClose }) {
             {work.project && <span className="lb-proj">{work.project}</span>}
           </div>
           <h3>{work.title}</h3>
+          <div className="lb-divider" />
+          <span className="lb-label">内容策略</span>
           <p>{work.desc}</p>
           <div className="lb-tags">
             {work.tags.map((t) => (
