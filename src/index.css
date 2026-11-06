@@ -1134,21 +1134,6 @@ body {
   background: linear-gradient(90deg, var(--ink-soft), transparent);
 }
 
-/* ---------- About 头像角标 ---------- */
-.photo-badge {
-  position: absolute;
-  top: 22px;
-  right: 22px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 9px 18px;
-  font-size: 12px;
-  letter-spacing: 0.15em;
-  font-weight: 600;
-  color: var(--accent);
-}
-
 /* ---------- stats 调整（去除内联样式） ---------- */
 .about .stats {
   margin-top: 48px;

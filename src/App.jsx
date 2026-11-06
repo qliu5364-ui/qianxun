@@ -212,9 +212,6 @@ function About() {
           <div className="photo-wrap">
             <img className="photo" src={asset("avatar.png")} alt="刘洪安" />
             <div className="photo-tag glass">刘洪安 · 短视频运营 / 短视频编导</div>
-            <div className="photo-badge glass">
-              <Icon d={icons.spark} size={16} /> 即刻接单
-            </div>
           </div>
           <div className="info">
             <span className="section-label">ABOUT ME</span>
