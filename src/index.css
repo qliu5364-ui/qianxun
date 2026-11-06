@@ -596,7 +596,7 @@ body {
 .lightbox {
   position: fixed;
   inset: 0;
-  z-index: 90;
+  z-index: 300;
   display: grid;
   place-items: center;
   padding: 48px;
