@@ -159,7 +159,7 @@ function Hero() {
           LIU
         </h1>
         <div className="role">
-          AIGC 导演 <span>/</span> AIGC 讲师
+          短视频运营 <span>/</span> 短视频编导
         </div>
         <p className="desc">
           用 AI 重构影像叙事。专注 AIGC 影视级内容创作与教学，
@@ -207,7 +207,7 @@ function About() {
         <div className="panel glass reveal">
           <div className="photo-wrap">
             <img className="photo" src={asset("avatar.png")} alt="刘洪安" />
-            <div className="photo-tag glass">刘洪安 · AIGC DIRECTOR</div>
+            <div className="photo-tag glass">刘洪安 · 短视频运营 / 短视频编导</div>
             <div className="photo-badge glass">
               <Icon d={icons.spark} size={16} /> 即刻接单
             </div>
