@@ -153,30 +153,60 @@ function Hero() {
       <div className="orb orb-2" />
       <div className="orb orb-3" />
       <div className="container">
-        <div className="badge glass">
-          <span className="dot" />
-          AVAILABLE FOR PROJECTS
+        <div className="hero-main">
+          <div className="badge glass">
+            <span className="dot" />
+            AVAILABLE FOR PROJECTS
+          </div>
+          <h1 className="chrome-text font-display">
+            HONGAN
+            <br />
+            LIU
+          </h1>
+          <div className="role">
+            短视频运营 <span>/</span> 短视频编导
+          </div>
+          <p className="desc">
+            两年抖音短视频编导运营经验。擅长账号定位、选题策划、脚本撰写、剪辑发布全流程，
+            爆款打造 + 数据复盘，让专业内容精准触达目标用户，助力账号快速涨粉与转化。
+          </p>
+          <div className="actions">
+            <a href="#works" className="btn btn-primary">
+              观看作品 <Icon d={icons.arrow} size={17} />
+            </a>
+            <a href="#contact" className="btn btn-ghost">
+              合作咨询
+            </a>
+          </div>
         </div>
-        <h1 className="chrome-text font-display">
-          HONGAN
-          <br />
-          LIU
-        </h1>
-        <div className="role">
-          短视频运营 <span>/</span> 短视频编导
-        </div>
-        <p className="desc">
-          两年抖音短视频编导运营经验。擅长账号定位、选题策划、脚本撰写、剪辑发布全流程，
-          爆款打造 + 数据复盘，让专业内容精准触达目标用户，助力账号快速涨粉与转化。
-        </p>
-        <div className="actions">
-          <a href="#works" className="btn btn-primary">
-            观看作品 <Icon d={icons.arrow} size={17} />
-          </a>
-          <a href="#contact" className="btn btn-ghost">
-            合作咨询
-          </a>
-        </div>
+
+        <aside className="hero-side glass">
+          <span className="side-label">CORE STATS · 核心战绩</span>
+          <div className="side-stats">
+            {[
+              ["17w+", "累计涨粉"],
+              ["70w+", "单条最高播放"],
+              ["22w+", "自然播放爆款"],
+            ].map(([num, lbl]) => (
+              <div className="side-stat" key={lbl}>
+                <span className="n font-display">{num}</span>
+                <span className="l">{lbl}</span>
+              </div>
+            ))}
+          </div>
+          <div className="side-divider" />
+          <span className="side-label">合作方向</span>
+          <div className="side-tags">
+            {["医疗健康科普", "家居陶瓷", "品牌电商", "本地生活"].map((t) => (
+              <span key={t}>{t}</span>
+            ))}
+          </div>
+          <p className="side-note">
+            可承接账号全案策划、单条视频制作与团队内容培训，从定位、脚本到发布复盘全链路跟进，
+            一周稳定输出 5-6 条高质量内容。
+          </p>
+        </aside>
+
         <div className="hero-meta">
           <div className="meta-item">
             <span className="meta-label">SCROLL TO EXPLORE</span>
