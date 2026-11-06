@@ -183,7 +183,7 @@ function Hero() {
             <span className="meta-line" />
           </div>
           <div className="meta-item">
-            <span className="meta-label">BASED IN 广东广州</span>
+            <span className="meta-label">BASED IN 北京</span>
             <span className="meta-line" />
           </div>
           <div className="meta-item">
@@ -239,7 +239,7 @@ function About() {
                 <Icon d={icons.mail} size={16} /> 2633913477@qq.com
               </span>
               <span className="contact-chip">
-                <Icon d={icons.pin} size={16} /> 广东 · 广州
+                <Icon d={icons.pin} size={16} /> 北京
               </span>
             </div>
           </div>
@@ -696,7 +696,7 @@ function Contact() {
               </span>
               <span>
                 <div className="t">所在城市</div>
-                <div className="v">广东 · 广州 / 全国可合作</div>
+                <div className="v">北京 / 全国可合作</div>
               </span>
             </div>
           </div>
