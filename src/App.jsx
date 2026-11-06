@@ -135,16 +135,6 @@ const asset = (name) => `${import.meta.env.BASE_URL}assets/${name}`;
 function Hero() {
   return (
     <header className="hero">
-      <video
-        className="hero-video"
-        src={asset("hero-bg.mp4")}
-        autoPlay
-        muted
-        loop
-        playsInline
-        onCanPlay={(e) => e.currentTarget.play().catch(() => {})}
-      />
-      <div className="hero-mask" />
       <div className="orb orb-1" />
       <div className="orb orb-2" />
       <div className="orb orb-3" />

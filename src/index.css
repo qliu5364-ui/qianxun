@@ -196,47 +196,10 @@ body {
   display: flex;
   align-items: center;
   overflow: hidden;
-}
-
-.hero .hero-video {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 72% 48%;
-  filter:
-    saturate(0.40)
-    brightness(1.32)
-    contrast(0.92)
-    hue-rotate(-10deg)
-    blur(1.2px);
-  transform: scale(1.06);
-}
-
-.hero .hero-mask {
-  position: absolute;
-  inset: 0;
   background:
-    linear-gradient(
-      92deg,
-      rgba(246, 250, 255, 0.97) 0%,
-      rgba(242, 247, 253, 0.90) 30%,
-      rgba(232, 241, 252, 0.68) 55%,
-      rgba(222, 234, 249, 0.35) 78%,
-      rgba(215, 228, 246, 0.12) 100%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(244, 248, 253, 0.55) 0%,
-      transparent 35%,
-      rgba(238, 243, 249, 0.75) 100%
-    ),
-    radial-gradient(
-      800px 600px at 85% 50%,
-      rgba(160, 195, 240, 0.25),
-      transparent 70%
-    );
+    radial-gradient(900px 620px at 82% 38%, rgba(160, 195, 240, 0.30), transparent 70%),
+    radial-gradient(720px 520px at 8% 82%, rgba(185, 212, 244, 0.26), transparent 72%),
+    linear-gradient(180deg, #f2f7fd 0%, var(--bg) 55%, #eef4fb 100%);
 }
 
 .hero .container {
