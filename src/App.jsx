@@ -158,17 +158,20 @@ function Hero() {
             <span className="dot" />
             AVAILABLE FOR PROJECTS
           </div>
-          <h1 className="chrome-text font-display">
-            HONGAN
-            <br />
-            LIU
+          <h1>
+            把专业内容，<br />
+            做成<span>会涨粉</span>的短视频
           </h1>
           <div className="role">
             短视频运营 <span>/</span> 短视频编导
           </div>
           <p className="desc">
-            两年抖音短视频编导运营经验。擅长账号定位、选题策划、脚本撰写、剪辑发布全流程，
-            爆款打造 + 数据复盘，让专业内容精准触达目标用户，助力账号快速涨粉与转化。
+            两年抖音短视频编导运营经验，完整操盘两个从 0 到 1 的爆款账号：武汉市中医医院「中医张压西」
+            与景德镇妙得陶瓷工厂号，覆盖医疗健康科普与家居陶瓷两个赛道，全程主导账号定位、脚本与发布。
+          </p>
+          <p className="desc">
+            擅长选题策划、脚本撰写、拍摄统筹、剪辑包装与数据复盘，用「痛点开场 + 专业讲解 + 行动引导」的
+            结构持续打造爆款，让专业内容精准触达目标用户，带动账号稳定涨粉与转化。
           </p>
           <div className="actions">
             <a href="#works" className="btn btn-primary">
@@ -202,8 +205,7 @@ function Hero() {
             ))}
           </div>
           <p className="side-note">
-            可承接账号全案策划、单条视频制作与团队内容培训，从定位、脚本到发布复盘全链路跟进，
-            一周稳定输出 5-6 条高质量内容。
+            可承接账号全案策划、单条视频制作与团队内容培训，从定位、脚本到发布复盘全链路跟进。
           </p>
         </aside>
 
